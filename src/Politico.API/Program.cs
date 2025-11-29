@@ -65,7 +65,9 @@ builder.Services.Configure<OutputCacheSettings>(
 
 var cacheSettings = builder.Configuration
     .GetSection("OutputCacheSettings")
-    .Get<OutputCacheSettings>();
+    .Get<OutputCacheSettings>()
+    ?? throw new InvalidOperationException("OutputCacheSettings missing in appsettings.json");
+
 
 builder.Services.AddOutputCache(options =>
 {
