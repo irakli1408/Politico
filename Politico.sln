@@ -1,0 +1,87 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11217.181 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{339A8DCF-D558-4AE2-80AA-8E5AE0B1F4C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.Common", "common\Politico.Common\Politico.Common.csproj", "{8846FAC3-6496-4831-ACEE-77B9E7753CDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.Common.ErrorHandler", "common\Politico.Common.ErrorHandler\Politico.Common.ErrorHandler.csproj", "{1BF37731-DAFA-467B-8310-F5017E1AC858}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external", "external", "{A513654A-6C03-472A-9076-A5E98F1A9759}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.FileManager", "external\Politico.FileManager\Politico.FileManager.csproj", "{3C1B616D-94D6-4FEC-AF57-245746BDCDC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.NotificationManager", "external\Politico.NotificationManager\Politico.NotificationManager.csproj", "{35AA5D05-9C0D-4E72-A1DA-CB933105E092}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.Payment", "external\Politico.Payment\Politico.Payment.csproj", "{17A21695-5948-466A-9C2C-D70F9636B9C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F9A91497-B874-4DB9-B6EE-0CDE8AFD20B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.API", "src\Politico.API\Politico.API.csproj", "{3F1EF8D9-AD16-488F-A72A-67B0B801D1D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.Application", "src\Politico.Application\Politico.Application.csproj", "{E2D6E43C-32A4-4A88-9B0D-29D6AA5D2AE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.Domain", "src\Politico.Domain\Politico.Domain.csproj", "{DFD40FA0-DAB5-4306-A76A-361FF97B99E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Politico.Persistence", "src\Politico.Persistence\Politico.Persistence.csproj", "{B275535F-6947-406E-986D-52C84B391CC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8846FAC3-6496-4831-ACEE-77B9E7753CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8846FAC3-6496-4831-ACEE-77B9E7753CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8846FAC3-6496-4831-ACEE-77B9E7753CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8846FAC3-6496-4831-ACEE-77B9E7753CDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BF37731-DAFA-467B-8310-F5017E1AC858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BF37731-DAFA-467B-8310-F5017E1AC858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BF37731-DAFA-467B-8310-F5017E1AC858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BF37731-DAFA-467B-8310-F5017E1AC858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C1B616D-94D6-4FEC-AF57-245746BDCDC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1B616D-94D6-4FEC-AF57-245746BDCDC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1B616D-94D6-4FEC-AF57-245746BDCDC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1B616D-94D6-4FEC-AF57-245746BDCDC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35AA5D05-9C0D-4E72-A1DA-CB933105E092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35AA5D05-9C0D-4E72-A1DA-CB933105E092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35AA5D05-9C0D-4E72-A1DA-CB933105E092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35AA5D05-9C0D-4E72-A1DA-CB933105E092}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A21695-5948-466A-9C2C-D70F9636B9C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A21695-5948-466A-9C2C-D70F9636B9C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A21695-5948-466A-9C2C-D70F9636B9C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A21695-5948-466A-9C2C-D70F9636B9C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F1EF8D9-AD16-488F-A72A-67B0B801D1D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F1EF8D9-AD16-488F-A72A-67B0B801D1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F1EF8D9-AD16-488F-A72A-67B0B801D1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F1EF8D9-AD16-488F-A72A-67B0B801D1D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2D6E43C-32A4-4A88-9B0D-29D6AA5D2AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2D6E43C-32A4-4A88-9B0D-29D6AA5D2AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2D6E43C-32A4-4A88-9B0D-29D6AA5D2AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2D6E43C-32A4-4A88-9B0D-29D6AA5D2AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD40FA0-DAB5-4306-A76A-361FF97B99E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD40FA0-DAB5-4306-A76A-361FF97B99E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD40FA0-DAB5-4306-A76A-361FF97B99E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD40FA0-DAB5-4306-A76A-361FF97B99E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B275535F-6947-406E-986D-52C84B391CC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B275535F-6947-406E-986D-52C84B391CC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B275535F-6947-406E-986D-52C84B391CC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B275535F-6947-406E-986D-52C84B391CC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8846FAC3-6496-4831-ACEE-77B9E7753CDF} = {339A8DCF-D558-4AE2-80AA-8E5AE0B1F4C9}
+		{1BF37731-DAFA-467B-8310-F5017E1AC858} = {339A8DCF-D558-4AE2-80AA-8E5AE0B1F4C9}
+		{3C1B616D-94D6-4FEC-AF57-245746BDCDC9} = {A513654A-6C03-472A-9076-A5E98F1A9759}
+		{35AA5D05-9C0D-4E72-A1DA-CB933105E092} = {A513654A-6C03-472A-9076-A5E98F1A9759}
+		{17A21695-5948-466A-9C2C-D70F9636B9C7} = {A513654A-6C03-472A-9076-A5E98F1A9759}
+		{3F1EF8D9-AD16-488F-A72A-67B0B801D1D4} = {F9A91497-B874-4DB9-B6EE-0CDE8AFD20B8}
+		{E2D6E43C-32A4-4A88-9B0D-29D6AA5D2AE1} = {F9A91497-B874-4DB9-B6EE-0CDE8AFD20B8}
+		{DFD40FA0-DAB5-4306-A76A-361FF97B99E1} = {F9A91497-B874-4DB9-B6EE-0CDE8AFD20B8}
+		{B275535F-6947-406E-986D-52C84B391CC7} = {F9A91497-B874-4DB9-B6EE-0CDE8AFD20B8}
+	EndGlobalSection
+EndGlobal
