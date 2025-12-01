@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Politico.Application.Common.Helper.Model;
 using Politico.FileManager.Common.Interfaces;
-using Politico.FileManager.Common.Options;
 
 namespace Politico.FileManager.Storage;
 

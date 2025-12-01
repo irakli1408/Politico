@@ -1,4 +1,5 @@
-﻿using Politico.Domain.Entities.Media;
+﻿using Politico.Domain.Common.Enums.Media;
+using Politico.Domain.Entities.Media;
 
 namespace Politico.FileManager.Common.DTO;
 

@@ -1,5 +1,5 @@
-﻿using Politico.FileManager.Common.Interfaces;
-using Politico.FileManager.Common.Options;
+﻿using Politico.Application.Common.Helper.Model;
+using Politico.FileManager.Common.Interfaces;
 using Politico.FileManager.Media.Upload;
 using Politico.FileManager.Storage;
 

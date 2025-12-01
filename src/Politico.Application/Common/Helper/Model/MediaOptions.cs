@@ -1,4 +1,4 @@
-﻿namespace Politico.FileManager.Common.Options
+﻿namespace Politico.Application.Common.Helper.Model
 {
     public class MediaOptions
     {

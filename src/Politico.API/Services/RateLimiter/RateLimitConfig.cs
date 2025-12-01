@@ -1,6 +1,6 @@
 ﻿using Politico.Common.Model;
 
-namespace Politico.API.RateLimiter
+namespace Politico.API.Services.RateLimiter
 {
     public static class RateLimitConfig
     {

@@ -3,10 +3,11 @@ using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
-using Politico.API.Settings;
+using Politico.API.Services.Auth;
 using Politico.API.Tools.Extensions;
+using Politico.Application.Common.Helper.Model;
+using Politico.Application.Handlers.Admin.Publish.Commands;
 using Politico.Application.Interfaces.Auth;
 using Politico.Application.Interfaces.Cashing;
 using Politico.Application.Interfaces.Logger;
@@ -38,8 +39,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IAppDbContext>(provider =>
     provider.GetRequiredService<AppDbContext>());
 
-builder.Services.AddControllers();
-
 // ------------ API Versioning + Explorer ------------
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -69,6 +68,11 @@ var cacheSettings = builder.Configuration
     ?? throw new InvalidOperationException("OutputCacheSettings missing in appsettings.json");
 
 
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblyContaining<ApplicationAssemblyMarker>();
+});
+
 builder.Services.AddOutputCache(options =>
 {
     options.AddPolicy("CacheShort", b =>
@@ -92,7 +96,6 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasherAdapter>();
 
 builder.Services.AddScoped<IErrorLogService, ErrorLogService>();
 builder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
-
 
 var jwtSection = builder.Configuration.GetSection("Jwt");
 var jwtOptions = jwtSection.Get<JwtOptions>()!;
@@ -138,10 +141,16 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<IAppCache, MemoryAppCache>();
 
 // Swagger
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(SetActiveCommonClassHandler).Assembly));
+
+
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.ConfigureOptions<SwaggerConfiguration>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddCommon();
@@ -186,6 +195,14 @@ builder.Services.AddCors(opt =>
         .AllowCredentials()
         // полезно, чтобы фронт видел эти заголовки
         .WithExposedHeaders("X-RateLimit-Policy", "Retry-After", "Content-Disposition");
+    });
+
+    builder.Services.AddMediatR(cfg =>
+    {
+        cfg.RegisterServicesFromAssemblies(
+            typeof(Program).Assembly,
+            typeof(SetActiveHandler<,>).Assembly
+        );
     });
 
     // (опционально) фиксированный список origin-ов, если не нужны "все локальные порты"

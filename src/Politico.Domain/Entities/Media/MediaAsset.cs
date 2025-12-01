@@ -1,18 +1,7 @@
-﻿namespace Politico.Domain.Entities.Media
-{
-    public enum MediaType
-    {
-        Photo = 1,
-        Video = 2
-    }
-    public enum MediaOwnerType
-    {
-        Unknown = 0,
-        Project = 1,
-        Blog = 2,
-        User = 3,
-        // добавишь свои
-    }
+﻿using Politico.Domain.Common.Enums.Media;
+
+namespace Politico.Domain.Entities.Media
+{ 
     public class MediaAsset
     {
         public long Id { get; set; }

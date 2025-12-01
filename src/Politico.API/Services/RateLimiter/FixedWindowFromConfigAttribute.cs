@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 
-namespace Politico.API.RateLimiter;
+namespace Politico.API.Services.RateLimiter;
 
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
 public sealed class FixedWindowFromConfigAttribute : Attribute, IRateLimiterPolicy<string>

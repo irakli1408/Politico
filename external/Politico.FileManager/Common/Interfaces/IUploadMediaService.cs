@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Politico.Domain.Common.Enums.Media;
 using Politico.Domain.Entities.Media;
 using Politico.FileManager.Common.DTO;
 

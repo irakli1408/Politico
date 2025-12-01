@@ -1,22 +1,19 @@
-﻿using Asp.Versioning;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.RateLimiting;
-using Politico.API.RateLimiter;
-using Politico.Domain.Entities.Media;
+using Politico.API.Settings;
+using Politico.Domain.Common.Enums.Media;
 using Politico.FileManager.Common.DTO;
 using Politico.FileManager.Common.Interfaces;
 
 namespace Politico.API.Controllers.Admin
 {
-    [ApiController]
-    [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/{culture}/admin/media")]
-    public class AdminMediaController : ControllerBase
+    public class AdminMediaController : ApiControllerBase
     {
         private readonly IUploadMediaService _uploadService;
-
-        public AdminMediaController(IUploadMediaService uploadService)
+        public AdminMediaController(ISender sender, IUploadMediaService uploadService) : base(sender)
         {
             _uploadService = uploadService;
         }

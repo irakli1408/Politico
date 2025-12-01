@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Politico.Application.Common.Helper.Model;
 using Politico.Application.Interfaces.Persistence;
+using Politico.Domain.Common.Enums.Media;
 using Politico.Domain.Entities.Media;
 using Politico.FileManager.Common.DTO;
 using Politico.FileManager.Common.Interfaces;
-using Politico.FileManager.Common.Options;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;

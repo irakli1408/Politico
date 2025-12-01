@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Politico.Application.Interfaces.Persistence;
+using Politico.Domain.Common.Enums.Media;
 using Politico.Domain.Entities.Media;
 using Politico.FileManager.Common.DTO;
 using Politico.FileManager.Common.Interfaces;
