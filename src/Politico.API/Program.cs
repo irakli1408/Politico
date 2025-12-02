@@ -388,6 +388,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseRateLimiter();
 
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 

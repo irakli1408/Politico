@@ -32,22 +32,45 @@ public class UploadMediaService : IUploadMediaService
             throw new ArgumentException("empty_file");
 
         var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-        var allow = type == MediaType.Photo ? _opt.AllowedImageExtensions : _opt.AllowedVideoExtensions;
-        var maxMb = type == MediaType.Photo ? _opt.MaxImageSizeMb : _opt.MaxVideoSizeMb;
+
+        // 👇 Выбор списков разрешённых расширений и лимитов по типу
+        string[] allow;
+        int maxMb;
+
+        switch (type)
+        {
+            case MediaType.Photo:
+                allow = _opt.AllowedImageExtensions;
+                maxMb = _opt.MaxImageSizeMb;
+                break;
+
+            case MediaType.Video:
+                allow = _opt.AllowedVideoExtensions;
+                maxMb = _opt.MaxVideoSizeMb;
+                break;
+
+            case MediaType.Audio:                 // NEW
+                allow = _opt.AllowedAudioExtensions;
+                maxMb = _opt.MaxAudioSizeMb;
+                break;
+
+            default:
+                throw new ArgumentException("unsupported_media_type");
+        }
 
         if (!allow.Contains(ext, StringComparer.OrdinalIgnoreCase))
-            throw new ArgumentException("unsupported_extensio\".mov\"n");
+            throw new ArgumentException("unsupported_extension");
 
         if (file.Length > maxMb * 1024L * 1024L)
             throw new ArgumentException("file_too_large");
 
         var now = DateTime.UtcNow;
-        var subfolder = $"{now:yyyy}/{now:MM}";
         var guid = $"{Guid.NewGuid():N}";
 
         // ===== ВИДЕО =====
         if (type == MediaType.Video)
         {
+            var subfolder = $"{now:yyyy}/{now:MM}";
             var newName = $"{guid}{ext}";
 
             await using var input = file.OpenReadStream();
@@ -71,7 +94,45 @@ public class UploadMediaService : IUploadMediaService
             return new UploadMediaResult(asset.Id, asset.OriginalFileName, (int)asset.Type, url, null);
         }
 
+        // ===== АУДИО =====  (никаких превью, просто сохранить файл как есть)
+        if (type == MediaType.Audio)
+        {
+            // отдельная подпапка для аудио, чтобы не мешалось с картинками/видео
+            var subfolder = $"audio/{now:yyyy}/{now:MM}";   // NEW
+            var newName = $"{guid}{ext}";
+
+            await using var input = file.OpenReadStream();
+            var relPath = await _storage.SaveAsync(input, subfolder, newName, ct);
+
+            var asset = new MediaAsset
+            {
+                Type = MediaType.Audio,
+                OriginalFileName = file.FileName,
+                StoredPath = relPath,
+                ContentType = file.ContentType,
+                SizeBytes = file.Length,
+                Extension = ext,
+                CreatedAtUtc = now,
+                // для аудио превью нет:
+                ThumbStoredPath = null,
+                PosterPath = null,
+                Width = null,
+                Height = null,
+                ThumbWidth = null,
+                ThumbHeight = null
+            };
+
+            _db.MediaAssets.Add(asset);
+            await _db.SaveChangesAsync(ct);
+
+            var url = BuildUrl(relPath);
+            return new UploadMediaResult(asset.Id, asset.OriginalFileName, (int)asset.Type, url, null);
+        }
+
         // ===== ФОТО =====
+        // сюда попадаем только если type == Photo
+        var subfolderPhoto = $"{now:yyyy}/{now:MM}";
+
         await using var imgStream = file.OpenReadStream();
         using var img = await Img.LoadAsync(imgStream, ct);
 
@@ -86,7 +147,7 @@ public class UploadMediaService : IUploadMediaService
 
         var finalExt = ".jpg";
         var mainName = $"{guid}{finalExt}";
-        var mainRelPath = await _storage.SaveAsync(mainMs, subfolder, mainName, ct);
+        var mainRelPath = await _storage.SaveAsync(mainMs, subfolderPhoto, mainName, ct);
 
         // превью
         var maxW = _opt.ThumbMaxWidth;
@@ -110,7 +171,7 @@ public class UploadMediaService : IUploadMediaService
         thumbMs.Position = 0;
 
         var thumbName = $"000_{guid}_thumb{finalExt}";
-        var thumbRelPath = await _storage.SaveAsync(thumbMs, subfolder, thumbName, ct);
+        var thumbRelPath = await _storage.SaveAsync(thumbMs, subfolderPhoto, thumbName, ct);
 
         var assetPhoto = new MediaAsset
         {
@@ -138,5 +199,7 @@ public class UploadMediaService : IUploadMediaService
     }
 
     private string BuildUrl(string relPath)
-        => $"{_opt.RequestPath.TrimEnd('/')}/{relPath}".Replace("//", "/").Replace("\\", "/");
+        => $"{_opt.RequestPath.TrimEnd('/')}/{relPath}"
+            .Replace("//", "/")
+            .Replace("\\", "/");
 }

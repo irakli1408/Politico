@@ -4,6 +4,7 @@
     {
         Unknown = 0,
         Photo,
-        Video
+        Video,
+        Audio
     }
 }
