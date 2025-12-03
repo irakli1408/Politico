@@ -367,8 +367,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 var app = builder.Build();
 
 // ------------ Pipeline ------------
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
 
     // Swagger UI c поддержкой версий
@@ -384,7 +384,7 @@ if (app.Environment.IsDevelopment())
             );
         }
     });
-}
+//}
 
 app.UseRateLimiter();
 
