@@ -1,12 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Politico.API.Settings;
+using Politico.Application.Features.Articles.Queries.SearchArticles;
 using Politico.Application.Handlers.Admin.ArticeleModuls.Commands.Create;
 using Politico.Application.Handlers.Admin.ArticeleModuls.Commands.Delete;
 using Politico.Application.Handlers.Admin.ArticeleModuls.Commands.Remove;
 using Politico.Application.Handlers.Admin.ArticeleModuls.Commands.Update;
 using Politico.Application.Handlers.Admin.ArticeleModuls.Queries.GetArticleDetails;
 using Politico.Application.Handlers.Admin.ArticeleModuls.Queries.GetArticleList;
+using Politico.Application.Handlers.Public.Articles.Queries.GetArticleBySlug;
 using Politico.Domain.Common.Enums.Articles;
 
 namespace Politico.API.Controllers.Admin;
@@ -67,4 +69,31 @@ public sealed class AdminArticlesController : ApiControllerBase
         var dto = await Sender.Send(new GetArticleAdminDetailsQuery(id));
         return Ok(dto);
     }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> Search(
+    [FromRoute] string culture,
+    [FromQuery] string query,
+    [FromQuery] int skip = 0,
+    [FromQuery] int take = 20)
+    {
+        var result = await Sender.Send(new SearchArticlesQuery(culture, query, skip, take));
+        return Ok(result);
+    }
+
+    // GET /api/v1/en/articles/{slug}
+    [HttpGet("{slug}")]
+    public async Task<IActionResult> GetBySlug(
+        [FromRoute] string culture,
+        [FromRoute] string slug)
+    {
+        var result = await Sender.Send(
+            new GetArticleBySlugQuery(culture, slug));
+
+        if (result is null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
 }
